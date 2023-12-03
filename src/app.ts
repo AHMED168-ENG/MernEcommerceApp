@@ -41,7 +41,7 @@ class App {
         this.app.use(express.urlencoded({extended: false})) // parse urlencoded request body الداتا هتجيلك عن طريق json
         this.app.use(cookieParser()) 
         this.app.use(express.json()) 
-        slugify.extend(charMap);
+        slugify.extend(charMap); 
         // this.app.use(this.app.use(csurf()))
         this.app.use(helmet()); // this is third part package about secure app it is used for securety its add some headers to response to mack it secuered its add multable headers used to mack your app more secured
         if (Config.NODE_SERVER_ENV == "production") {

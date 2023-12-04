@@ -5,7 +5,6 @@ import { ImageOperations, Others } from '../../helper/helper';
 import UserService from '../user/users.services';
 import { UserType } from '../../types/user';
 import { PipelineStage, Types } from 'mongoose';
-import tbl_user from '../../model/users';
 
 
 
@@ -48,6 +47,11 @@ export default class ProductService {
     public async findWithQuery(query: any ) : Promise<ProductType> {
         const product = await tbl_product.findOne(query)
         return product
+    }
+    
+    public async findAllWithQuery(query: any ) : Promise<ProductType[]> {
+        const products = await tbl_product.find(query)
+        return products
     }
     
     public async activation(_id:string , body : {active : boolean}) : Promise<ProductType> {

@@ -8,6 +8,7 @@ import BlogCategoryRouter from './blog_category/blog_category.routes';
 import BrandRouter from './brand/brand.routes';
 import ProductCommentRouter from './product_comment/product_comment.routes';
 import CouponRouter from './coupon/coupon.routes';
+import CartRouter from './cart/cart.routes';
 
 
 class ApiRoutes {
@@ -20,6 +21,7 @@ class ApiRoutes {
     private readonly brandRouter: BrandRouter = new BrandRouter()
     private readonly productCommentRouter: ProductCommentRouter = new ProductCommentRouter()
     private readonly couponRouter: CouponRouter = new CouponRouter()
+    private readonly cartRouter: CartRouter = new CartRouter()
 
     constructor(
         private app: express.Application,
@@ -36,6 +38,7 @@ class ApiRoutes {
         this.app.use("/api/brand" , this.brandRouter.router)
         this.app.use("/api/product-comment" , this.productCommentRouter.router)
         this.app.use("/api/coupon" , this.couponRouter.router)
+        this.app.use("/api/cart" , this.cartRouter.router)
     }
 }
 

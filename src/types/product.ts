@@ -9,7 +9,9 @@ export type ProductType= mongoose.Document & {
     price : number,
     category : [mongoose.Schema.Types.ObjectId],
     brands : [string],
-    quantity : number,
+    quantity : number, 
+    discount : number, 
+    discount_type : string, 
     sold : number,
     images : [{   
         url : string,

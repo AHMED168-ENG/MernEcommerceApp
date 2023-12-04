@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 import { mongoosePagination } from "mongoose-paginate-ts";
 
-const OrderSchema = new Schema({
+const CartSchema = new Schema({
     products : [
         {
             product_id : {
@@ -11,6 +11,7 @@ const OrderSchema = new Schema({
             },
             count : Number,
             color : String,
+            _id:false
         },
     ],
     total_price : Number,
@@ -21,9 +22,9 @@ const OrderSchema = new Schema({
         required : true
     },
 } , {timestamps : true})
-OrderSchema.plugin(mongoosePagination)
-OrderSchema.plugin(mongooseAggregatePaginate);
-export default OrderSchema
+CartSchema.plugin(mongoosePagination)
+CartSchema.plugin(mongooseAggregatePaginate);
+export default CartSchema
 
 
 

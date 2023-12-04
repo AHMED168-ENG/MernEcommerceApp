@@ -26,7 +26,7 @@ const productSchema = new Schema({
     category : {
         type : mongoose.Types.ObjectId,
         required: true,
-        ref : "tbl_category"
+        ref : "tbl_product_category"
     },
     brands : {
         type : [String],

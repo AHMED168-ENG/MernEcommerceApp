@@ -3,11 +3,11 @@ import { Pagination } from "mongoose-paginate-ts";
 
 
 export type CartType= mongoose.Document & {
-    products :[{
+    products : {
         product_id : Schema.Types.ObjectId,
         count : number,
         color : string
-    }],
+    }[],
     total_price : number,
     price_after_discount : number,
     user_id : Schema.Types.ObjectId,

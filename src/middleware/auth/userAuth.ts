@@ -35,7 +35,7 @@ export default class UserAuth {
             next(error)
        }
     }
-    public permission(permission : [string]) {
+    public permission(permission : string[]) {
         return (req : any , res : Response , next : NextFunction) => {
             try {
                 const user = req.user

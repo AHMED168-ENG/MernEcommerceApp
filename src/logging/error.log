@@ -328,3 +328,51 @@
 {"level":"error","message":"invalid argument to $skip stage: Expected an integer, but found NaN in: $skip: nan.0","timestamp":"2023-11-28T12:37:05.948Z"}
 {"level":"error","message":"$sort stage must have at least one sort key","timestamp":"2023-11-28T12:38:52.960Z"}
 {"level":"error","message":"tbl_product validation failed: discount: Tried to set nested object field `discount` to primitive value `0`","timestamp":"2023-11-28T19:33:25.768Z"}
+{"level":"error","message":"unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","timestamp":"2023-12-03T14:32:13.388Z"}
+{"level":"error","message":"unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","timestamp":"2023-12-03T14:33:48.575Z"}
+{"level":"error","message":"unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","timestamp":"2023-12-03T14:35:32.228Z"}
+{"level":"error","message":"unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","timestamp":"2023-12-03T14:37:14.796Z"}
+{"level":"error","message":"unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","timestamp":"2023-12-03T14:38:35.709Z"}
+{"level":"error","message":"unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","timestamp":"2023-12-03T14:39:10.506Z"}
+{"level":"error","message":"unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","timestamp":"2023-12-03T14:39:34.681Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9359dd65845423a8fac8' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T14:41:17.376Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c94df3fb9a2f0f0551b70' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T14:49:41.681Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c94df3fb9a2f0f0551b70' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T14:51:57.137Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c94df3fb9a2f0f0551b70' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T14:53:34.002Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c94df3fb9a2f0f0551b70' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T14:54:24.278Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c96f5e726efcebb4ed1af' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T14:58:51.129Z"}
+{"level":"error","message":"product.forEach is not a function","timestamp":"2023-12-03T15:13:32.885Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9a9188d85f85eb9f5dd3' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:13:54.055Z"}
+{"level":"error","message":"tbl_cart validation failed: total_price: Cast to Number failed for value \"NaN\" (type number) at path \"total_price\", price_after_discount: Cast to Number failed for value \"NaN\" (type number) at path \"price_after_discount\"","timestamp":"2023-12-03T15:15:16.377Z"}
+{"level":"error","message":"tbl_cart validation failed: total_price: Cast to Number failed for value \"NaN\" (type number) at path \"total_price\", price_after_discount: Cast to Number failed for value \"NaN\" (type number) at path \"price_after_discount\"","timestamp":"2023-12-03T15:16:35.853Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9bea4399fec46bf2efdb' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:17:15.237Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9bea4399fec46bf2efdb' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:21:29.742Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9d2b9ec6943caec105af' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:22:57.732Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9d2b9ec6943caec105af' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:24:02.200Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9d2b9ec6943caec105af' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:25:11.047Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9d2b9ec6943caec105af' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:25:37.745Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9d2b9ec6943caec105af' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:26:00.458Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656c9d2b9ec6943caec105af' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:26:42.012Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{\n  id: '656c9d2b9ec6943caec105af',\n  products: { '$elemMatch': { user_id: '655e20fb41bbc822531d3c46' } }\n}\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:28:06.598Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{\n  id: '656c9d2b9ec6943caec105af',\n  products: { '$elemMatch': { user_id: '655e20fb41bbc822531d3c46' } }\n}\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T15:29:08.232Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656ccc91a51921c137029934' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T18:45:02.913Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656ccc91a51921c137029934' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T18:45:58.691Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656ccc91a51921c137029934' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T18:47:28.188Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ id: '656ccc91a51921c137029934' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-03T18:51:01.034Z"}
+{"level":"error","message":"this product not belong to you","timestamp":"2023-12-03T19:34:07.360Z"}
+{"level":"error","message":"this product not belong to you","timestamp":"2023-12-03T19:39:03.447Z"}
+{"level":"error","message":"Cannot populate path `title` because it is not in your schema. Set the `strictPopulate` option to false to override.","timestamp":"2023-12-03T19:55:28.258Z"}
+{"level":"error","message":"Cannot populate path `products.product_id.products.product_id.category` because it is not in your schema. Set the `strictPopulate` option to false to override.","timestamp":"2023-12-03T19:59:23.443Z"}
+{"level":"error","message":"Schema hasn't been registered for model \"tbl_category\".\nUse mongoose.model(name, schema)","timestamp":"2023-12-03T19:59:47.752Z"}
+{"level":"error","message":"Schema hasn't been registered for model \"tbl_category\".\nUse mongoose.model(name, schema)","timestamp":"2023-12-03T19:59:48.957Z"}
+{"level":"error","message":"Schema hasn't been registered for model \"tbl_categorys\".\nUse mongoose.model(name, schema)","timestamp":"2023-12-03T20:00:31.907Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'count')","timestamp":"2023-12-04T07:39:17.790Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:41:45.976Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:42:35.731Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:43:53.028Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:44:08.424Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:46:15.407Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:46:35.828Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:46:36.591Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:47:49.169Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:48:16.816Z"}

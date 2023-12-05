@@ -1,4 +1,4 @@
-import mongoose, { Mongoose, Schema, mongo } from "mongoose";
+import mongoose, { Mongoose, Schema, Types, mongo } from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 import { mongoosePagination } from "mongoose-paginate-ts";
 import { DISCOUNT_TYPE } from "../../../constant/product";
@@ -60,8 +60,13 @@ const productSchema = new Schema({
         default: [{url : "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg"}]
     },
     colors : {
+        type : [Types.ObjectId],
+        default : [],
+        ref : "tbl_colors"
+    },
+    tags : {
         type : [String],
-        default : []
+        default : [],
     },
     active : {
         type : Boolean,

@@ -1,5 +1,6 @@
 import { check , query } from "express-validator";
 import { isValidObjectId } from "mongoose";
+import { ORDER_STATUS } from "../../constant/product";
 
 
 export default class CartValidation {
@@ -18,6 +19,17 @@ export default class CartValidation {
         return check("product.color").notEmpty().withMessage("enter product color please")
     }
 
+    private COD() {
+        return check("COD").notEmpty().withMessage("enter COD ")
+    }
+
+    public orderStatus() {
+        return check("order_status").notEmpty().withMessage("enter order_status").custom((value , {req}) => {
+            if(!ORDER_STATUS.includes(value)) return Promise.reject("value should be one of " + ORDER_STATUS.join(" , "))
+            return true
+        })
+    }
+
     public addToCart() {
         return [
             this.productId(),
@@ -30,6 +42,12 @@ export default class CartValidation {
     public updateCartCount() {
         return [
             this.count()
+        ]
+    }
+    
+    public addOrder() {
+        return [
+            this.COD()
         ]
     }
 }

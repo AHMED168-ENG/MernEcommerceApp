@@ -1,8 +1,13 @@
 import tbl_cart from '../../model/cart';
+import tbl_order from '../../model/orders';
 import { Others } from '../../helper/helper';
 import { CartType } from '../../types/cart';
 import ProductService from '../product/product.services';
 import { Schema } from 'mongoose';
+import CouponService from '../coupon/coupon.services';
+import buildError from '../../helper/ErrorBuilder';
+import uniqid from "uniqid"
+import tbl_product from '../../model/product';
 
 type productCart =  {
     product_id : Schema.Types.ObjectId,
@@ -122,11 +127,11 @@ export default class CartService {
     public async findOneWithPopulate(user_id:string) : Promise<CartType> {
         const cart = await this.findOne(user_id)
         let productPrice = await this.getTotalPrice(cart.products)
-        return (await this.updateOne({user_id} , {
+        return await tbl_cart.findOneAndUpdate({user_id} , {
             products : cart.products,
             total_price : productPrice.totalPrice,
             price_after_discount : productPrice.totalPriceAfterDiscount,
-        })).populate([{path : "products.product_id" , select: "name _id price description category" , populate : {path : "category"}}])
+        } , {new : true}).populate([{path : "products.product_id" , populate : {path : "category"}}])
     }
 
     public async findWithQuery(query: any ) : Promise<CartType> {
@@ -135,7 +140,7 @@ export default class CartService {
     }
     
     public async deleteOne(_id:string , userId :string) {
-        const cart = await tbl_cart.deleteOne({_id })
+        const cart = await tbl_cart.deleteOne({_id , userId })
         return cart
     }
     
@@ -151,10 +156,10 @@ export default class CartService {
             let priceForCount = element.price * quantity
             totalPrice += priceForCount
             if(element.discount_type == "amount") { 
-                totalPriceAfterDiscount += (priceForCount - element.discount)
+                totalPriceAfterDiscount += (priceForCount - (element.discount * quantity))
             } else {
-                let discountAsAmount = (priceForCount / 100) * element.discount
-                totalPriceAfterDiscount += (priceForCount - discountAsAmount)
+                let discountAsAmount = (element.discount / 100) * priceForCount
+                totalPriceAfterDiscount += (priceForCount - discountAsAmount) 
             }
         });
         return {
@@ -162,5 +167,72 @@ export default class CartService {
             totalPrice
         }
     }
+    
+    public async useCouponInCart(user_id : string , coupon : string) {
+        const couponService = new CouponService()
+        const couponData = await couponService.findOne(coupon)
+        if(!couponData) throw buildError(404 , "this coupon not existed")
+        let cart : CartType = await this.findOne(user_id)
+        if(!cart) throw buildError(404 , "you do not have eny carts")
+        let coupon_discount = couponData.discount
+        if(couponData.discount_type == "percentage") {
+            coupon_discount = (couponData.discount * 100 ) / cart.total_price
+        }
+        cart = await this.updateOne({_id:cart.id , user_id} , {$set : {
+            products : cart.products,
+            total_price : cart.total_price,                      
+            price_after_discount : (cart.price_after_discount - coupon_discount),
+        }})
+        await couponService.updateOne(coupon , {$inc : {count : -1}})
+        return cart
+    }
 
+    public async createOrder(user_id : string , COD : boolean) {
+        if(!COD) throw buildError(403 , "Create cash order failed")
+        const cart : CartType = await this.findOne(user_id)
+        if(!cart) throw buildError(404 , "you do not have cart")
+        const order = await tbl_order.create({
+            products : cart.products,
+            payment_intent : {
+                id : uniqid(),
+                method : "COD",
+                amount : cart.price_after_discount ?? cart.total_price,
+                status : "Cash On Delivery",
+                created : Date.now(),
+                currency : "usd"
+            },
+            order_status : "Cash On Delivery" ,
+            ordered_by : user_id
+        })
+        const bulkWrite = []
+        cart.products.forEach(ele => {
+            bulkWrite.push({updateOne : {
+                filter : {_id : ele.product_id},
+                update : {$inc : {sold : 1 , quantity : -1}}
+            }})
+        })
+        const productService = new ProductService()
+        productService.bulkWrite(bulkWrite)
+        return order
+    }
+
+    public async getAllOrder(user_id : string) {
+        return await tbl_order.find({
+            ordered_by : user_id    
+        }).populate("products.product_id")
+    }
+
+    public async getOrder(user_id : string , _id:string) {
+        return await tbl_order.findOne({
+            ordered_by : user_id,
+            _id
+        }).populate("products.product_id")
+    }
+
+    public async changeOrderStatus(_id : string , order_status:string , userId: string) {
+        return await tbl_order.findByIdAndUpdate({
+            _id,
+            ordered_by:userId
+        } , {order_status}).populate("products.product_id")
+    }
 }

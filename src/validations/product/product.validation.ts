@@ -1,6 +1,8 @@
 import { check , query } from "express-validator";
 import { isValidObjectId } from "mongoose";
 import ProductService from "../../services/product/product.services";
+import { DISCOUNT_TYPE } from "../../constant/product";
+import { promises } from "nodemailer/lib/xoauth2";
 
 
 export default class ProductValidation {
@@ -48,6 +50,13 @@ export default class ProductValidation {
         }).withMessage("enter at lest on color for product please").trim()
     }
 
+    private discount_type() {
+        return check("discount_type").custom((val , {req}) => {
+            if(!DISCOUNT_TYPE.includes(val))  return Promise.reject(`this field accept ${DISCOUNT_TYPE.join(" ")} this value only`)
+            return true
+        })
+    }
+
     public createProduct() {
         return [
             this.title(),
@@ -69,6 +78,7 @@ export default class ProductValidation {
             this.quantity(),
             this.brands(),
             this.colors(),
+            this.discount_type(),
         ]
     }
 

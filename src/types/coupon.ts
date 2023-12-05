@@ -6,7 +6,8 @@ export type couponType= mongoose.Document & {
     name : string,
     discount : number,
     discount_type : string,
-    expiration : Date,
+    count : number,          
+    expiration : Date,        
 }
 
 export interface CouponPaginateModel extends Pagination<couponType> {

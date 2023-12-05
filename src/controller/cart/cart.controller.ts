@@ -118,4 +118,109 @@ export default class CartController {
         }
     }
 
+    /** ------------------------------------------------------  
+     * @desc use coupon cart
+     * @route /cart/coupon cart
+     * @method put
+     * @access private user
+     /**  ------------------------------------------------------  */
+    public async useCouponInCart(req : HandlerRequest , res : Response , next : NextFunction) {
+        try {
+            const userId = req.user.id
+            const coupon = req.params.id
+            const cartService : CartService = new CartService()
+            const cart = await cartService.useCouponInCart(userId , coupon)
+            return res.status(httpStatus.OK).json({
+                success : true,
+                cart
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /** ------------------------------------------------------  
+     * @desc add order
+     * @route /cart/add order
+     * @method post
+     * @access private user
+     /**  ------------------------------------------------------  */
+    public async createOrder(req : HandlerRequest , res : Response , next : NextFunction) {
+        try {
+            const userId = req.user.id
+            const {COD} = req.body
+            const cartService : CartService = new CartService()
+            const cart = await cartService.createOrder(userId , COD)
+            return res.status(httpStatus.OK).json({
+                success : true,
+                cart
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /** ------------------------------------------------------  
+     * @desc get all order
+     * @route /cart/get all order
+     * @method post
+     * @access private user
+     /**  ------------------------------------------------------  */
+    public async getAllOrder(req : HandlerRequest , res : Response , next : NextFunction) {
+        try {
+            const userId = req.user.id
+            const cartService : CartService = new CartService()
+            const orders = await cartService.getAllOrder(userId )
+            return res.status(httpStatus.OK).json({
+                success : true,
+                orders
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /** ------------------------------------------------------  
+     * @desc get order
+     * @route /cart/get order
+     * @method post
+     * @access private user
+     /**  ------------------------------------------------------  */
+    public async getOrder(req : HandlerRequest , res : Response , next : NextFunction) {
+        try {
+            const userId = req.user.id
+            const {id} = req.params
+            const cartService : CartService = new CartService()
+            const order = await cartService.getOrder(userId , id)
+            return res.status(httpStatus.OK).json({
+                success : true,
+                order
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /** ------------------------------------------------------  
+     * @desc change Order Status
+     * @route /cart/change order status
+     * @method put
+     * @access private user
+     /**  ------------------------------------------------------  */
+    public async changeOrderStatus(req : HandlerRequest , res : Response , next : NextFunction) {
+        try {
+            const {order_status} = req.body
+            const userId = req.user.id
+            const {id} = req.params
+            const cartService : CartService = new CartService()
+            const order = await cartService.changeOrderStatus(id , order_status , userId)
+            return res.status(httpStatus.OK).json({
+                success : true,
+                order
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
 }

@@ -53,6 +53,9 @@ export default class ProductService {
         const products = await tbl_product.find(query)
         return products
     }
+    public async bulkWrite(query: any ) : Promise<any> {
+        return await tbl_product.bulkWrite(query)
+    }
     
     public async activation(_id:string , body : {active : boolean}) : Promise<ProductType> {
         let product = await this.updateOne(_id , body)
@@ -76,17 +79,6 @@ export default class ProductService {
         return user
     }   
 
-    public async addToCart(productId:string , userId : string) : Promise<UserType> {
-        const userService = new UserService()
-        let user = await userService.findOne(userId)
-        // const inWallet = user.cart.find((id) => id.toString() == productId)
-        // if(!inWallet) {
-        //     user = await userService.updateOne(userId , {$push : {cart : productId}})
-        // } else {
-        //     user = await userService.updateOne(userId , {$pull : {cart : new Types.ObjectId(productId)}})
-        // }
-        return user
-    }   
 
     public async addRate(productId:string , userId : string , start : number) : Promise<ProductType> {
         let product = await this.findOne(productId)

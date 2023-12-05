@@ -376,3 +376,8 @@
 {"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:46:36.591Z"}
 {"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:47:49.169Z"}
 {"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-04T07:48:16.816Z"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ user_id: '655e20fb41bbc822531d3c46' }\" (type Object) at path \"_id\" for model \"tbl_cart\"","timestamp":"2023-12-05T08:12:37.659Z"}
+{"level":"error","message":"Expected double-quoted property name in JSON at position 136","timestamp":"2023-12-05T20:07:29.186Z"}
+{"level":"error","message":"Expected double-quoted property name in JSON at position 136","timestamp":"2023-12-05T20:08:06.108Z"}
+{"level":"error","message":"Expected double-quoted property name in JSON at position 136","timestamp":"2023-12-05T20:08:21.628Z"}
+{"level":"error","message":"Expected double-quoted property name in JSON at position 136","timestamp":"2023-12-05T20:08:22.862Z"}

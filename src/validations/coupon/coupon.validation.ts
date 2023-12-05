@@ -27,11 +27,13 @@ export default class couponValidation {
         })
     }
 
+    private count() {
+        return check("count").notEmpty().withMessage("enter coupon count available").isNumeric().withMessage("coupon count accept number")
+    }
+
     private expiration() {
         return check("expiration").notEmpty().withMessage("enter coupon expiration ").isISO8601().toDate().withMessage("this field accept date")
     }
-
-
 
     private page() {
         return query("page").isInt({ gt: 0 });
@@ -53,7 +55,8 @@ export default class couponValidation {
             this.name(),
             this.discount_type(),
             this.discount(),
-            this.expiration()
+            this.expiration(),
+            this.count()
         ]
     }
     
@@ -62,7 +65,8 @@ export default class couponValidation {
             this.name(true),
             this.discount_type(),
             this.discount(),
-            this.expiration()
+            this.expiration(),
+            this.count()
         ]
     }
 

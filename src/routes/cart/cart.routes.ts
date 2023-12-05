@@ -47,11 +47,50 @@ export default class CartRouter {
             this.cartController.updateCartCount
         )
 
+        this.router.put(
+            "/add-coupon/:id" , 
+            this.userAuth.Auth,
+            this.userAuth.permission(["user" , "admin"]),
+            this.cartController.useCouponInCart
+        )
+
         this.router.get(
             "/my-cart" , 
             this.userAuth.Auth,
             this.userAuth.permission(["user" , "admin"]),
             this.cartController.findOneWithPopulate
+        )
+
+        this.router.post(
+            "/add-order" , 
+            this.userAuth.Auth,
+            this.userAuth.permission(["user" , "admin"]),
+            this.cartValidation.addOrder(),
+            handel_validation_errors,
+            this.cartController.createOrder
+        )
+
+        this.router.get(
+            "/all-orders" , 
+            this.userAuth.Auth,
+            this.userAuth.permission(["user" , "admin"]),
+            this.cartController.getAllOrder
+        )
+
+        this.router.get(
+            "/get-order/:id" , 
+            this.userAuth.Auth,
+            this.userAuth.permission(["user" , "admin"]),
+            this.cartController.getOrder
+        )
+
+        this.router.put(
+            "/change-order-status/:id" , 
+            this.userAuth.Auth,
+            this.userAuth.permission(["user" , "admin"]),
+            this.cartValidation.orderStatus(),
+            handel_validation_errors,
+            this.cartController.changeOrderStatus 
         )
     }
 

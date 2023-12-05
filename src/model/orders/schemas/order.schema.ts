@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 import { mongoosePagination } from "mongoose-paginate-ts";
+import { ORDER_STATUS } from "../../../constant/product";
 
 const OrderSchema = new Schema({
     products : [
@@ -16,7 +17,7 @@ const OrderSchema = new Schema({
     payment_intent : {},
     order_status: {
         type:String,
-        enum: ["Not Proceed" , "Cash On Delivery" , "processing" , "Dispatch" , "Canceled" , "Delivered"],
+        enum: ORDER_STATUS,
         default:"Not Proceed"
       },
     ordered_by: {

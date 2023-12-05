@@ -17,7 +17,8 @@ const CouponSchema = new Schema({
         type: String,
         enum: ['percentage', 'fixed'],
         required: true,
-      },
+    },
+    count: Number,
     expiration: {
         type: Date,
         required: true,

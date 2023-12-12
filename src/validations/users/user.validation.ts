@@ -1,6 +1,5 @@
 import { check , param} from "express-validator";
 import { isValidObjectId } from "mongoose";
-import tbl_user from "../../model/users";
 import UserService from "../../services/user/users.services";
 import passwordValidator from "password-validator"
 

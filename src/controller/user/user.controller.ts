@@ -27,10 +27,7 @@ export default class UserController {
             const {body} = req
             const userService : UserService = new UserService()
             const user = await userService.create({...body , active :true})
-            return res.status(httpStatus.CREATED).json({
-                user,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(user)
         } catch (error) {
             next(error)
         }
@@ -47,10 +44,7 @@ export default class UserController {
             const {limit , page} = req.query
             const userService : UserService = new UserService()
             const users = await userService.find(+limit , +page)
-            return res.status(httpStatus.OK).json({
-                users,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(users)
         } catch (error) {
             next(error)
         }
@@ -67,10 +61,7 @@ export default class UserController {
             const {id} = req.user
             const userService : UserService = new UserService()
             const users = await userService.findWishList(id)
-            return res.status(httpStatus.OK).json({
-                users,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(users)
         } catch (error) {
             next(error)
         }
@@ -87,10 +78,7 @@ export default class UserController {
             const {id} = req.params
             const userService : UserService = new UserService()
             const user = await userService.findOne(id)
-            return res.status(httpStatus.OK).json({
-                user,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(user)
         } catch (error) {
             next(error)
         }
@@ -108,10 +96,7 @@ export default class UserController {
             const {body} = req
             const userService : UserService = new UserService()
             const user = await userService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                user,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(user)
         } catch (error) {
             next(error)
         }
@@ -129,10 +114,7 @@ export default class UserController {
             const {body} = req
             const userService : UserService = new UserService()
             const user = await userService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                user,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(user)
         } catch (error) {
             next(error)
         }
@@ -169,10 +151,7 @@ export default class UserController {
             const userService : UserService = new UserService()
             let user = await userService.findOne(id)
             await userService.updateOne(id , {isBlocked : !user.isBlocked})
-            return res.status(httpStatus.OK).json({
-                success : true,
-                user
-            })
+            return res.status(httpStatus.OK).json(user)
         } catch (error) {
             next(error)
         }
@@ -189,10 +168,7 @@ export default class UserController {
             const {id} = req.params
             const userService : UserService = new UserService()
             let user = await userService.activeMyAccount(id)
-            return res.status(httpStatus.OK).json({
-                success : true,
-                user
-            })
+            return res.status(httpStatus.OK).json(user)
         } catch (error) {
             next(error)
         }

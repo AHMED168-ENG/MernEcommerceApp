@@ -381,3 +381,4 @@
 {"level":"error","message":"Expected double-quoted property name in JSON at position 136","timestamp":"2023-12-05T20:08:06.108Z"}
 {"level":"error","message":"Expected double-quoted property name in JSON at position 136","timestamp":"2023-12-05T20:08:21.628Z"}
 {"level":"error","message":"Expected double-quoted property name in JSON at position 136","timestamp":"2023-12-05T20:08:22.862Z"}
+{"level":"error","message":"Invalid $project :: caused by :: projection specification must have at least one field","timestamp":"2024-02-27T20:08:33.331Z"}

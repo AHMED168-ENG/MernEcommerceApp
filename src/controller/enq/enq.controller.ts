@@ -25,10 +25,7 @@ export default class EnqController {
             const {body} = req
             const enqService : EnqService = new EnqService()
             const enq = await enqService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                enq,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(enq)
         } catch (error) {
             next(error)
         }
@@ -45,10 +42,7 @@ export default class EnqController {
             const query = req.query
             const enqService : EnqService = new EnqService()
             const enq = await enqService.find(query , ["name"])
-            return res.status(httpStatus.OK).json({
-                enq,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(enq)
         } catch (error) {
             next(error)
         }
@@ -65,10 +59,7 @@ export default class EnqController {
             const {id} = req.params
             const enqService : EnqService = new EnqService()
             const enq = await enqService.findOne(id)
-            return res.status(httpStatus.OK).json({
-                enq,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(enq)
         } catch (error) {
             next(error)
         }
@@ -86,10 +77,7 @@ export default class EnqController {
             const {body} = req
             const enqService : EnqService = new EnqService()
             const enq = await enqService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                enq,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(enq)
         } catch (error) {
             next(error)
         }

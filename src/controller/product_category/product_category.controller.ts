@@ -27,10 +27,7 @@ export default class ProductCategoryController {
             const others : Others = new Others()
             body.slug = await others.makeSlug(body.title)
             const productCategory = await productCategoryService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                productCategory,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(productCategory)
         } catch (error) {
             next(error)
         }
@@ -47,10 +44,7 @@ export default class ProductCategoryController {
             const query = req.query
             const productCategoryService : ProductCategoryService = new ProductCategoryService()
             const productCategory = await productCategoryService.find(query , ["title" , "brand"])
-            return res.status(httpStatus.OK).json({
-                productCategory,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(productCategory)
         } catch (error) {
             next(error)
         }
@@ -67,10 +61,7 @@ export default class ProductCategoryController {
             const {id} = req.params
             const productCategoryService : ProductCategoryService = new ProductCategoryService()
             const productCategory = await productCategoryService.findOne(id)
-            return res.status(httpStatus.OK).json({
-                productCategory : productCategory ?? null,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(productCategory)
         } catch (error) {
             next(error)
         }
@@ -90,10 +81,7 @@ export default class ProductCategoryController {
             body.slug = await others.makeSlug(body.title)
             const productCategoryService : ProductCategoryService = new ProductCategoryService()
             const productCategory = await productCategoryService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                productCategory,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(productCategory)
         } catch (error) {
             next(error)
         }
@@ -129,12 +117,8 @@ export default class ProductCategoryController {
             const {id} = req.params
             const productCategoryService : ProductCategoryService = new ProductCategoryService()
             let productCategory = await productCategoryService.findOne(id)
-            console.log(productCategory)
             productCategory = await productCategoryService.activation(id , {active : !productCategory.active})
-            return res.status(httpStatus.OK).json({
-                success : true,
-                productCategory
-            })
+            return res.status(httpStatus.OK).json(productCategory)
         } catch (error) {
             next(error)
         }

@@ -4,9 +4,9 @@ import { Others } from "../../helper/helper";
 import BlogCategoryService from "../../services/blog_category/blog_category.services";
 interface HandlerRequest extends Request {
     query: {
-        page: string,
-        limit: string,
-        sort: string,
+        page: string,   
+        limit: string,  
+        sort: string,   
     },
     user : {}
 }
@@ -27,10 +27,7 @@ export default class BlogCategoryController {
             // const others : Others = new Others()
             // body.slug = await others.makeSlug(body.title)
             const blogCategory = await blogCategoryService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                blogCategory,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(blogCategory)
         } catch (error) {
             next(error)
         }
@@ -47,10 +44,7 @@ export default class BlogCategoryController {
             const query = req.query
             const blogCategoryService : BlogCategoryService = new BlogCategoryService()
             const blogCategory = await blogCategoryService.find(query , ["title"])
-            return res.status(httpStatus.OK).json({
-                blogCategory,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(blogCategory)
         } catch (error) {
             next(error)
         }
@@ -67,10 +61,7 @@ export default class BlogCategoryController {
             const {id} = req.params
             const blogCategoryService : BlogCategoryService = new BlogCategoryService()
             const blogCategory = await blogCategoryService.findOne(id)
-            return res.status(httpStatus.OK).json({
-                blogCategory : blogCategory ?? null,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(blogCategory)
         } catch (error) {
             next(error)
         }
@@ -90,10 +81,7 @@ export default class BlogCategoryController {
             // body.slug = await others.makeSlug(body.title)
             const blogCategoryService : BlogCategoryService = new BlogCategoryService()
             const blogCategory = await blogCategoryService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                blogCategory,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(blogCategory)
         } catch (error) {
             next(error)
         }
@@ -129,12 +117,8 @@ export default class BlogCategoryController {
             const {id} = req.params
             const blogCategoryService : BlogCategoryService = new BlogCategoryService()
             let blogCategory = await blogCategoryService.findOne(id)
-            console.log(blogCategory)
             blogCategory = await blogCategoryService.activation(id , {active : !blogCategory.active})
-            return res.status(httpStatus.OK).json({
-                success : true,
-                blogCategory
-            })
+            return res.status(httpStatus.OK).json(blogCategory)
         } catch (error) {
             next(error)
         }

@@ -27,10 +27,7 @@ export default class BlogController {
             const others : Others = new Others()
             body.slug = await others.makeSlug(body.title)
             const blog = await blogService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                blog,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(blog)
         } catch (error) {
             next(error)
         }
@@ -47,10 +44,7 @@ export default class BlogController {
             const query = req.query
             const blogService : BlogService = new BlogService()
             const blogs = await blogService.find(query , ["title" , "brand"])
-            return res.status(httpStatus.OK).json({
-                blogs,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(blogs)
         } catch (error) {
             next(error)
         }
@@ -90,10 +84,7 @@ export default class BlogController {
             body.slug = await others.makeSlug(body.title)
             const blogService : BlogService = new BlogService()
             const blog = await blogService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                blog,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(blog)
         } catch (error) {
             next(error)
         }
@@ -128,7 +119,6 @@ export default class BlogController {
         try {
             const {blogsId} = req.body
             const {id} : any = req.user
-            console.log(req.user)
             const blogService : BlogService = new BlogService()
             await blogService.changeBlogViews(blogsId , id)
             return res.status(httpStatus.OK).json({
@@ -149,7 +139,6 @@ export default class BlogController {
             const {id} = req.params
             const userId : any = req.user.id
             const {isLiked , isDisLiked} : any = req.body
-            console.log(id , userId , isLiked)
             const blogService : BlogService = new BlogService()
             await blogService.likesAndDislike(id , isLiked , isDisLiked , userId)
             return res.status(httpStatus.OK).json({
@@ -173,10 +162,7 @@ export default class BlogController {
             const blogService : BlogService = new BlogService()
             let blog = await blogService.findOne(id)
             let newBlog = await blogService.activation(id , {active : !blog.active})
-            return res.status(httpStatus.OK).json({
-                success : true,
-                newBlog
-            })
+            return res.status(httpStatus.OK).json(newBlog)
         } catch (error) {
             next(error)
         }
@@ -195,7 +181,7 @@ export default class BlogController {
             const {width , height} = req.body
             const blogService : BlogService = new BlogService()
             let blog = await blogService.uploadImage(files , {width , height} , id)
-           return res.status(httpStatus.OK).json({blog , success:true} )
+           return res.status(httpStatus.OK).json(blog)
         } catch (error) {
             next(error)
         }

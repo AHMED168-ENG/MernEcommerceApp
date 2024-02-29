@@ -26,6 +26,20 @@ export default class BlogService {
         let aggregate : PipelineStage[] = [
             {
                 $lookup : {
+                    from:"tbl_blog_categories",
+                    foreignField : "_id",
+                    localField : "category",
+                    as : "category",
+                }
+            },
+            {
+                $unwind : {
+                    path : "$category",
+                    preserveNullAndEmptyArrays : true
+                }
+            },
+            {
+                $lookup : {
                     from:"tbl_users",
                     foreignField : "_id",
                     localField : "numViews",

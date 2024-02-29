@@ -112,6 +112,51 @@ export default class ProductService {
     private getStage(newQuery , newSort) {
         return [
             {$match : newQuery},    
+            {
+                $lookup : {
+                    from:"tbl_product_categories",
+                    foreignField : "_id",
+                    localField : "category",
+                    as : "category",
+                    pipeline : [{
+                        $project : {
+                            "title" : 1
+                        }
+                    }]
+                }
+            },
+            {$unwind : {path : "$category" , preserveNullAndEmptyArrays : true }},
+            {
+                $lookup : {
+                    from:"tbl_brands",
+                    foreignField : "_id",
+                    localField : "brands",
+                    as : "brands",
+                    pipeline : [
+                    {$match : {
+                        active : true
+                    }},    
+                    {
+                        $project : {
+                            "title" : 1,
+                        }
+                    }]
+                }
+            },
+            {
+                $lookup : {
+                    from:"tbl_colors",
+                    foreignField : "_id",
+                    localField : "colors",
+                    as : "colors",
+                    pipeline : [   
+                    {
+                        $project : {
+                            "name" : 1,
+                        }
+                    }]
+                }
+            },
             {$unwind : {path : "$rating" , preserveNullAndEmptyArrays : true }},
             {$group : {
                     _id : "$_id" , 
@@ -123,6 +168,8 @@ export default class ProductService {
                     price : {$first : "$price"},
                     category : {$first : "$category"},
                     brands : {$first : "$brands"},
+                    discount : {$first : "$discount"},
+                    discount_type : {$first : "$discount_type"},
                     quantity : {$first : "$quantity"},
                     sold : {$first : "$sold"},
                     images : {$first : "$images"},
@@ -140,6 +187,10 @@ export default class ProductService {
                     price : "$price",
                     category : "$category",
                     brands : "$brands",
+                    quantity : "$quantity",
+                    sold : "$sold",
+                    discount_type : "$discount_type",
+                    discount : "$discount",
                     images : "$images",
                     colors : "$colors",
                     rating : {$cond : {if:{$eq : ["$rating" , null] } , then : 0 , else : "$rating"}},

@@ -25,6 +25,20 @@ export default class ProductCategoryService {
         let newQuery = await others.sanitizeQuery(query , sanitize)
         let newSort = await others.sortDocs(sort)
         let aggregateStage : PipelineStage[] = [
+            {
+                $lookup : {
+                    from : "tbl_product_categories",
+                    as : "mainCategory",
+                    foreignField : "parentId",
+                    localField : "_id",
+                }
+            },
+            {
+                $unwind : {
+                    path : "$mainCategory",
+                    "preserveNullAndEmptyArrays": true
+                },
+            },
             {$graphLookup: {
                 from: 'tbl_product_categories',
                 startWith: '$parentId',

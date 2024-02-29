@@ -25,10 +25,7 @@ export default class couponController {
             const {body} = req
             const couponService : CouponService = new CouponService()
             const coupon = await couponService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                coupon,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(coupon)
         } catch (error) {
             next(error)
         }
@@ -45,10 +42,7 @@ export default class couponController {
             const query = req.query
             const couponService : CouponService = new CouponService()
             const coupon = await couponService.find(query , ["name"])
-            return res.status(httpStatus.OK).json({
-                coupon,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(coupon)
         } catch (error) {
             next(error)
         }
@@ -65,10 +59,7 @@ export default class couponController {
             const {id} = req.params
             const couponService : CouponService = new CouponService()
             const coupon = await couponService.findOne(id)
-            return res.status(httpStatus.OK).json({
-                coupon,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(coupon)
         } catch (error) {
             next(error)
         }
@@ -88,10 +79,7 @@ export default class couponController {
             // body.slug = await others.makeSlug(body.title)
             const couponService : CouponService = new CouponService()
             const coupon = await couponService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                coupon,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(coupon)
         } catch (error) {
             next(error)
         }

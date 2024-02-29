@@ -25,10 +25,7 @@ export default class ColorController {
             const {body} = req
             const colorService : ColorService = new ColorService()
             const color = await colorService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                color,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(color)
         } catch (error) {
             next(error)
         }
@@ -45,10 +42,7 @@ export default class ColorController {
             const query = req.query
             const colorService : ColorService = new ColorService()
             const color = await colorService.find(query , ["name"])
-            return res.status(httpStatus.OK).json({
-                color,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(color)
         } catch (error) {
             next(error)
         }
@@ -65,10 +59,7 @@ export default class ColorController {
             const {id} = req.params
             const colorService : ColorService = new ColorService()
             const color = await colorService.findOne(id)
-            return res.status(httpStatus.OK).json({
-                color,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(color)
         } catch (error) {
             next(error)
         }
@@ -88,10 +79,7 @@ export default class ColorController {
             // body.slug = await others.makeSlug(body.title)
             const colorService : ColorService = new ColorService()
             const color = await colorService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                color,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(color)
         } catch (error) {
             next(error)
         }

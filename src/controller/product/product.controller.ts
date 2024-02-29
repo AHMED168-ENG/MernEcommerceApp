@@ -27,10 +27,7 @@ export default class ProductController {
             const others : Others = new Others()
             body.slug = await others.makeSlug(body.title)
             const product = await productService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                product,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(product)
         } catch (error) {
             next(error)
         }
@@ -47,10 +44,7 @@ export default class ProductController {
             const query = req.query
             const productService : ProductService = new ProductService()
             const products = await productService.find(query ,  ["category" , "rate" , "title" , "brand" , "price"])
-            return res.status(httpStatus.OK).json({
-                products,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(products)
         } catch (error) {
             next(error)
         }
@@ -67,10 +61,7 @@ export default class ProductController {
             const {id} = req.params
             const productService : ProductService = new ProductService()
             const product = await productService.findOneWithAggregate(id)
-            return res.status(httpStatus.OK).json({
-                product,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(product)
         } catch (error) {
             next(error)
         }
@@ -90,10 +81,7 @@ export default class ProductController {
             body.slug = await others.makeSlug(body.title)
             const productService : ProductService = new ProductService()
             const product = await productService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                product,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(product)
         } catch (error) {
             next(error)
         }
@@ -130,10 +118,7 @@ export default class ProductController {
             const productService : ProductService = new ProductService()
             let product = await productService.findOne(id)
             await productService.activation(id , {active : !product.active})
-            return res.status(httpStatus.OK).json({
-                success : true,
-                product
-            })
+            return res.status(httpStatus.OK).json(product)
         } catch (error) {
             next(error)
         }
@@ -151,10 +136,7 @@ export default class ProductController {
             const userId = req.user.id
             const productService : ProductService = new ProductService()
             let user = await productService.addToWishList(id , userId)
-            return res.status(httpStatus.OK).json({
-                success : true,
-                user
-            })
+            return res.status(httpStatus.OK).json(user)
         } catch (error) {
             next(error)
         }
@@ -194,10 +176,7 @@ export default class ProductController {
             const {start} = req.body
             const productService : ProductService = new ProductService()
             let user = await productService.addRate(id , userId , +start)
-            return res.status(httpStatus.OK).json({
-                success : true,
-                user
-            })
+            return res.status(httpStatus.OK).json(user)
         } catch (error) {
             next(error)
         }
@@ -216,7 +195,7 @@ export default class ProductController {
             const {width , height} = req.body
             const productService : ProductService = new ProductService()
             let product = await productService.uploadImage(files , {width , height} , id)
-           return res.status(httpStatus.OK).json({product , success:true} )
+           return res.status(httpStatus.OK).json(product )
         } catch (error) {
             next(error)
         }

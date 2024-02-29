@@ -11,6 +11,7 @@ import CouponRouter from './coupon/coupon.routes';
 import CartRouter from './cart/cart.routes';
 import ColorRouter from './color/color.routes';
 import EnqRouter from './enq/enq.routes';
+import OrderRouter from './order/order.routes';
 
 
 class ApiRoutes {
@@ -26,6 +27,7 @@ class ApiRoutes {
     private readonly cartRouter: CartRouter = new CartRouter()
     private readonly colorRouter: ColorRouter = new ColorRouter()
     private readonly enqRouter: EnqRouter = new EnqRouter()
+    private readonly orderRouter: OrderRouter = new OrderRouter()
 
     constructor(
         private app: express.Application,
@@ -45,6 +47,7 @@ class ApiRoutes {
         this.app.use("/api/cart" , this.cartRouter.router)
         this.app.use("/api/color" , this.colorRouter.router)
         this.app.use("/api/enq" , this.enqRouter.router)
+        this.app.use("/api/order" , this.orderRouter.router)
     }
 }
 

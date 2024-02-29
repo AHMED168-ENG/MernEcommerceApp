@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import {mongoosePagination} from "mongoose-paginate-ts"
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
@@ -13,8 +13,8 @@ const BlogSchema = new mongoose.Schema({
         required : true,
     },
     category : {
-        type : String,
-        required : true,
+        type : Schema.Types.ObjectId,
+        ref : "tbl_blog_category"
     },
     slug : {
         type : String,
@@ -56,7 +56,6 @@ const BlogSchema = new mongoose.Schema({
         type : String,
         default : "Admin"
     }
-
 } , {timestamps : true})
 
 BlogSchema.plugin(mongoosePagination)

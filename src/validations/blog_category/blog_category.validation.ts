@@ -51,6 +51,4 @@ export default class BlogCategoryValidation {
         ]
     }
 
-    
-
 }

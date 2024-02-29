@@ -23,13 +23,15 @@ const productSchema = new Schema({
         type : Number,
         required: true,
     },
+    
     category : {
         type : mongoose.Types.ObjectId,
         required: true,
         ref : "tbl_product_category"
     },
     brands : {
-        type : [String],
+        type : [mongoose.Types.ObjectId],
+        ref : "tbl_brand",
         default : [],  
     },
     quantity : {

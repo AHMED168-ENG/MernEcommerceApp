@@ -28,10 +28,7 @@ export default class BrandController {
             // const others : Others = new Others()
             // body.slug = await others.makeSlug(body.title)
             const brand = await brandService.create(body)
-            return res.status(httpStatus.CREATED).json({
-                brand,
-                success : true
-            })
+            return res.status(httpStatus.CREATED).json(brand)
         } catch (error) {
             next(error)
         }
@@ -48,10 +45,7 @@ export default class BrandController {
             const query = req.query
             const brandService : BrandService = new BrandService()
             const brand = await brandService.find(query , ["title"])
-            return res.status(httpStatus.OK).json({
-                brand,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(brand)
         } catch (error) {
             next(error)
         }
@@ -68,10 +62,7 @@ export default class BrandController {
             const {id} = req.params
             const brandService : BrandService = new BrandService()
             const brand = await brandService.findOne(id)
-            return res.status(httpStatus.OK).json({
-                brand,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(brand)
         } catch (error) {
             next(error)
         }
@@ -91,10 +82,7 @@ export default class BrandController {
             // body.slug = await others.makeSlug(body.title)
             const brandService : BrandService = new BrandService()
             const brand = await brandService.updateOne(id , body)
-            return res.status(httpStatus.OK).json({
-                brand,
-                success : true
-            })
+            return res.status(httpStatus.OK).json(brand)
         } catch (error) {
             next(error)
         }
@@ -132,10 +120,7 @@ export default class BrandController {
             let brand = await brandService.findOne(id)
             console.log(brand)
             brand = await brandService.activation(id , {active : !brand.active})
-            return res.status(httpStatus.OK).json({
-                success : true,
-                brand
-            })
+            return res.status(httpStatus.OK).json(brand)
         } catch (error) {
             next(error)
         }

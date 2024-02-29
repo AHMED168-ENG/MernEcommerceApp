@@ -160,7 +160,7 @@ export class Others {
   public async sanitizeQuery(query:string , sanitize : string[]){
     let queryObject : any = {}
     sanitize.forEach((ele) => {
-      if(query[ele]) {
+      if(query[ele] && !["limit","page","sort"].includes(ele)) {
         queryObject[ele] = query[ele]
       }
     })

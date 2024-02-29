@@ -22,10 +22,7 @@ class couponController {
                 const { body } = req;
                 const couponService = new coupon_services_1.default();
                 const coupon = yield couponService.create(body);
-                return res.status(http_status_1.default.CREATED).json({
-                    coupon,
-                    success: true
-                });
+                return res.status(http_status_1.default.CREATED).json(coupon);
             }
             catch (error) {
                 next(error);
@@ -38,10 +35,7 @@ class couponController {
                 const query = req.query;
                 const couponService = new coupon_services_1.default();
                 const coupon = yield couponService.find(query, ["name"]);
-                return res.status(http_status_1.default.OK).json({
-                    coupon,
-                    success: true
-                });
+                return res.status(http_status_1.default.OK).json(coupon);
             }
             catch (error) {
                 next(error);
@@ -54,10 +48,7 @@ class couponController {
                 const { id } = req.params;
                 const couponService = new coupon_services_1.default();
                 const coupon = yield couponService.findOne(id);
-                return res.status(http_status_1.default.OK).json({
-                    coupon,
-                    success: true
-                });
+                return res.status(http_status_1.default.OK).json(coupon);
             }
             catch (error) {
                 next(error);
@@ -71,10 +62,7 @@ class couponController {
                 const { body } = req;
                 const couponService = new coupon_services_1.default();
                 const coupon = yield couponService.updateOne(id, body);
-                return res.status(http_status_1.default.OK).json({
-                    coupon,
-                    success: true
-                });
+                return res.status(http_status_1.default.OK).json(coupon);
             }
             catch (error) {
                 next(error);

@@ -18,11 +18,11 @@ class EnqRouter {
         this.Routes();
     }
     Routes() {
-        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["admin"]), this.enqValidation.create(), handelBodyError_1.default, this.enqController.create);
+        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.enqValidation.create(), handelBodyError_1.default, this.enqController.create);
         this.router.put("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.enqValidation.update(), handelBodyError_1.default, this.enqController.updateOne);
-        this.router.get("/", this.enqValidation.checkPaginationParams(), handelBodyError_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.enqController.find);
-        this.router.get("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.enqController.findOne);
-        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.enqController.deleteOne);
+        this.router.get("/", this.enqValidation.checkPaginationParams(), handelBodyError_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.enqController.find);
+        this.router.get("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.enqController.findOne);
+        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.enqController.deleteOne);
     }
 }
 exports.default = EnqRouter;

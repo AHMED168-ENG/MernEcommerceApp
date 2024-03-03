@@ -24,7 +24,7 @@ export default class ColorRouter {
         this.router.post(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.colorValidation.name(),
             handel_validation_errors,
             this.colorController.create
@@ -44,7 +44,7 @@ export default class ColorRouter {
             this.colorValidation.checkPaginationParams(),
             handel_validation_errors,
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.colorController.find
         )
 
@@ -52,7 +52,7 @@ export default class ColorRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.colorController.findOne
         )
 
@@ -60,7 +60,7 @@ export default class ColorRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.colorController.deleteOne
         )
 

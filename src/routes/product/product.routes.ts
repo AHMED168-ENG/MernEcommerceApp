@@ -26,7 +26,7 @@ export default class ProductRouter {
             "/" , 
             this.productValidation.createProduct(),
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             handel_validation_errors,
             this.productController.create
         )
@@ -35,7 +35,7 @@ export default class ProductRouter {
             "/activate-product/:id",
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.productController.activationProduct
         )
         
@@ -93,7 +93,7 @@ export default class ProductRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.productController.findOne
         )
 
@@ -101,7 +101,7 @@ export default class ProductRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.productController.deleteOne
         )
 

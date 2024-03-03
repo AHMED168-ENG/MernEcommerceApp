@@ -15,6 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const users_1 = __importDefault(require("../../model/users"));
 const config_1 = require("../../config/config");
+const helper_1 = require("../../helper/helper");
+const ErrorBuilder_1 = __importDefault(require("../../helper/ErrorBuilder"));
+const http_status_1 = __importDefault(require("http-status"));
 class UserService {
     generateToken(id) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -84,6 +87,21 @@ class UserService {
     activeMyAccount(_id) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.updateOne(_id, { active: true });
+        });
+    }
+    uploadImage(file, dimension, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!file)
+                throw (0, ErrorBuilder_1.default)(http_status_1.default.FORBIDDEN, "chose your user image");
+            let user = yield this.findOne(id);
+            let imageOperations = new helper_1.ImageOperations();
+            let imagesFormate = yield imageOperations.formateImage(file, { width: +dimension.width, height: +dimension.height });
+            let imagesCloud = yield imageOperations.uploadFilesCloud(imagesFormate, "user");
+            let publicId = user.image.public_id;
+            if (publicId)
+                yield imageOperations.deleteFilesCloud(publicId);
+            let image = { url: imagesCloud.url, public_id: imagesCloud.public_id };
+            return yield this.updateOne(id, { $set: { image: image } });
         });
     }
 }

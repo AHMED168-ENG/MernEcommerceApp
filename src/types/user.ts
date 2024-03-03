@@ -12,5 +12,6 @@ export type UserType = mongoose.Document & {
     // cart : [mongoose.Types.ObjectId],
     address : string,
     wishlist : [mongoose.Types.ObjectId],
-    active : boolean
+    image:{url : string , public_id : string},
+    active : boolean,
 }

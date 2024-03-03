@@ -17,7 +17,7 @@ class OrderRouter {
         this.Routes();
     }
     Routes() {
-        this.router.get("/", this.enqValidation.checkPaginationParams(), handelBodyError_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.orderController.find);
+        this.router.get("/", this.enqValidation.checkPaginationParams(), handelBodyError_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.orderController.find);
     }
 }
 exports.default = OrderRouter;

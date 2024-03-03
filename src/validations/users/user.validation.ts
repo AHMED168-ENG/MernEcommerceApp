@@ -72,7 +72,7 @@ export default class UserValidation {
     }
 
     private passwordLength() {
-        return check("password").isLength({min : 10}).withMessage("your password length should be more than 10")
+        return check("password").isLength({min : 6}).withMessage("your password length should be more than 6")
         
     }
     
@@ -82,22 +82,30 @@ export default class UserValidation {
             let passValidator = new passwordValidator()
             passValidator
             .is()
-            .min(8)
+            .min(6)
             .is()
             .max(20)
             .is()
-            .lowercase(2)
+            .lowercase(1)
             .is()
             .uppercase(1)
             .has()
-            .digits(2)
+            .digits(1)
             .has()
-            .symbols(2)
+            .symbols(1)
             if(!passValidator.validate(val)) {
                 throw new Error("")
             }
             return true
         }).withMessage("password should contain lower case and upper case and should be minimum 8 and should be max 20 and should contain at lest 2 symbols and special character")
+        
+    }
+
+    private passwordReset() {
+        return check("resetPassword").custom((val : string , {req}) => {
+            if(req.body.password && (req.body.password !== val)) throw new Error("")
+            return true
+        }).withMessage("password should be matched")
         
     }
 
@@ -108,7 +116,9 @@ export default class UserValidation {
             this.lastName(),
             this.passwordLength(),
             this.password(),
+            this.passwordReset(),
             this.mobile(),
+            ...this.imageDimension()
         ]
     }
 
@@ -145,6 +155,18 @@ export default class UserValidation {
             this.passwordLength(),
             this.password()
         ]
+    }
+
+    public imageDimension() {
+        return [this.width() , this.height()]
+    }
+        
+    private width() {
+        return check("width").notEmpty().isNumeric()
+    }
+    
+    private height() {
+        return check("height").notEmpty().isNumeric()
     }
 
     private emailForgetPassword() {

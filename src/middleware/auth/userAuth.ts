@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { Config } from '../../config/config';
 import UserService from '../../services/user/users.services';
+import { userRoles } from '../../constant/user';
 
 export default class UserAuth {
     constructor(){}
@@ -20,7 +21,7 @@ export default class UserAuth {
             jwt.verify(token , Config.SECRET_KEY , async(error , decode : any) => {
                 if((error?.name == "TokenExpiredError")) {
                     return res.status(httpStatus.UNAUTHORIZED).json({
-                        msg: "token expired",
+                        message: "token expired",
                         success: false,
                     });
                 } else {
@@ -39,7 +40,7 @@ export default class UserAuth {
         return (req : any , res : Response , next : NextFunction) => {
             try {
                 const user = req.user
-                if(!permission.includes(user?.role)) {
+                if(!permission.includes(user?.role) && user?.role !== userRoles.SuperAdmin ) {
                     return res.status(httpStatus.FORBIDDEN).json({
                         message : "you not allowed to access"
                     })

@@ -18,12 +18,12 @@ class ProductCategoryRouter {
         this.Routes();
     }
     Routes() {
-        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["admin"]), this.productCategoryValidation.createProductCategory(), handelBodyError_1.default, this.productCategoryController.create);
-        this.router.put("/activate-product-category/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.productCategoryController.activationProductCategory);
+        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.productCategoryValidation.createProductCategory(), handelBodyError_1.default, this.productCategoryController.create);
+        this.router.put("/activate-product-category/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.productCategoryController.activationProductCategory);
         this.router.put("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.productCategoryValidation.updateProductCategory(), handelBodyError_1.default, this.productCategoryController.updateOne);
         this.router.get("/", this.productCategoryValidation.checkPaginationParams(), handelBodyError_1.default, this.productCategoryController.find);
         this.router.get("/:id", validateMongodbId_1.default, this.productCategoryController.findOne);
-        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.productCategoryController.deleteOne);
+        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.productCategoryController.deleteOne);
     }
 }
 exports.default = ProductCategoryRouter;

@@ -18,11 +18,11 @@ class ColorRouter {
         this.Routes();
     }
     Routes() {
-        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["admin"]), this.colorValidation.name(), handelBodyError_1.default, this.colorController.create);
+        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.colorValidation.name(), handelBodyError_1.default, this.colorController.create);
         this.router.put("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.colorValidation.name(), handelBodyError_1.default, this.colorController.updateOne);
-        this.router.get("/", this.colorValidation.checkPaginationParams(), handelBodyError_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.colorController.find);
-        this.router.get("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.colorController.findOne);
-        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.colorController.deleteOne);
+        this.router.get("/", this.colorValidation.checkPaginationParams(), handelBodyError_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.colorController.find);
+        this.router.get("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.colorController.findOne);
+        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.colorController.deleteOne);
     }
 }
 exports.default = ColorRouter;

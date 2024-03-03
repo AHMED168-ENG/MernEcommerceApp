@@ -22,7 +22,7 @@ export default class ProductCategoryRouter {
         this.router.post(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.productCategoryValidation.createProductCategory(),
             handel_validation_errors,
             this.productCategoryController.create
@@ -32,7 +32,7 @@ export default class ProductCategoryRouter {
             "/activate-product-category/:id",
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.productCategoryController.activationProductCategory
         )
 
@@ -62,7 +62,7 @@ export default class ProductCategoryRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.productCategoryController.deleteOne
         )
 

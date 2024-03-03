@@ -169,6 +169,21 @@ class UserController {
             }
         });
     }
+    uploadImage(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const { file } = req;
+                const { width, height } = req.body;
+                const userService = new users_services_1.default();
+                let user = yield userService.uploadImage(file, { width, height }, id);
+                return res.status(http_status_1.default.OK).json(user);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
     logout(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

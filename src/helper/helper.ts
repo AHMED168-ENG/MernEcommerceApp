@@ -31,11 +31,12 @@ export class ImageOperations {
   }
 
   public async deleteFilesCloud(publicId : string | string[]) {
-    let result
+    let result : any
     if(Array.isArray(publicId)) {
       result = cloudinary.api.delete_resources(publicId)
     } else {
-      result  = cloudinary.uploader.destroy(publicId)
+      console.log(publicId)
+      result = cloudinary.uploader.destroy(publicId)
     }
     return result
   }
@@ -47,7 +48,7 @@ export class ImageOperations {
     return {...fileFormate , fileName , filePath}
   }
 
-  public async formateImages(files : any, dimensions : {width : number , height : number}) {
+  public async formateImages(files : [Express.Multer.File], dimensions : {width : number , height : number}) {
     let filesFormate = []
     for(let i = 0 ; i < files.length ; i++) {
       const fileName = Date.now() + "_" + files[i].originalname
@@ -78,7 +79,6 @@ export class ImageOperations {
       storage: storage,
       fileFilter: fileFilter,
       limits: { fileSize: 1024 * 1024 * 2  },
-      
     });
   }
 
@@ -167,6 +167,7 @@ export class Others {
     queryObject = JSON.stringify(queryObject)
     queryObject = queryObject.replace(/\b(gte|gt|lte|lt|regex)\b/g ,(match => `$${match}`))
     queryObject = JSON.parse(queryObject)
+    console.log(queryObject)
     return queryObject
   }
   /*--------------------- end sanitize query ---------------------*/

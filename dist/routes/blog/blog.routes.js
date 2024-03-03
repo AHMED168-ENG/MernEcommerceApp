@@ -20,7 +20,7 @@ class BlogRouter {
         this.Routes();
     }
     Routes() {
-        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["admin"]), this.blogValidation.createBlog(), handelBodyError_1.default, this.blogController.create);
+        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.blogValidation.createBlog(), handelBodyError_1.default, this.blogController.create);
         this.router.put("/change-blog-views", this.userAuth.Auth, this.blogController.changeBlogViewNumber);
         this.router.put("/likes-and-dislike/:id", validateMongodbId_1.default, this.userAuth.Auth, this.blogValidation.likesAndDislikes(), handelBodyError_1.default, this.blogController.likesAndDislike);
         this.router.put("/activate-blog/:id", validateMongodbId_1.default, this.userAuth.Auth, this.blogController.activationBlog);
@@ -28,7 +28,7 @@ class BlogRouter {
         this.router.put("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.blogValidation.updateBlog(), handelBodyError_1.default, this.blogController.updateOne);
         this.router.get("/", this.blogValidation.checkPaginationParams(), handelBodyError_1.default, this.blogController.find);
         this.router.get("/:id", validateMongodbId_1.default, this.blogController.findOne);
-        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.blogController.deleteOne);
+        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.blogController.deleteOne);
     }
 }
 exports.default = BlogRouter;

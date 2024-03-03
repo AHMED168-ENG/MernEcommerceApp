@@ -178,7 +178,6 @@ export default class BlogService {
         let publicIds : string[] = [] 
         publicIds = blog.images.map(ele => ele.public_id)
         await imageOperations.deleteFilesCloud(publicIds)
-        console.log(publicIds)
         let images = []
         images = imagesCloud.map(ele => {
         return {url : ele.url , public_id : ele.public_id}

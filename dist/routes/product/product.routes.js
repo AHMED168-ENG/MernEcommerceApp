@@ -20,16 +20,16 @@ class ProductRouter {
         this.Routes();
     }
     Routes() {
-        this.router.post("/", this.productValidation.createProduct(), this.userAuth.Auth, this.userAuth.permission(["admin"]), handelBodyError_1.default, this.productController.create);
-        this.router.put("/activate-product/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.productController.activationProduct);
+        this.router.post("/", this.productValidation.createProduct(), this.userAuth.Auth, this.userAuth.permission(["Admin"]), handelBodyError_1.default, this.productController.create);
+        this.router.put("/activate-product/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.productController.activationProduct);
         this.router.put("/upload-image/:id", validateMongodbId_1.default, this.userAuth.Auth, this.imagesOperations.uploadMulter().array("image", 3), this.productValidation.imageDimension(), handelBodyError_1.default, this.productController.uploadImage);
         this.router.put("/wishlist/:id", validateMongodbId_1.default, this.userAuth.Auth, this.productController.addToWishList);
         this.router.put("/cart/:id", validateMongodbId_1.default, this.userAuth.Auth, this.productController.addToCart);
         this.router.put("/rate/:id", validateMongodbId_1.default, this.userAuth.Auth, this.productValidation.start(), handelBodyError_1.default, this.productController.addRate);
         this.router.put("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.productValidation.updateProduct(), handelBodyError_1.default, this.productController.updateOne);
         this.router.get("/", this.userAuth.Auth, this.productValidation.checkPaginationParams(), handelBodyError_1.default, this.productController.find);
-        this.router.get("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.productController.findOne);
-        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.productController.deleteOne);
+        this.router.get("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.productController.findOne);
+        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.productController.deleteOne);
     }
 }
 exports.default = ProductRouter;

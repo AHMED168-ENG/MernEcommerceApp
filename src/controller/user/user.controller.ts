@@ -24,9 +24,11 @@ export default class UserController {
      /**  ------------------------------------------------------  */
     public async create(req : Request , res : Response , next : NextFunction) {
         try {
-            const {body} = req
+            const {body , file} = req
+            const {width , height} = req.body
             const userService : UserService = new UserService()
             const user = await userService.create({...body , active :true})
+            if(file) await userService.uploadImage(file , {width , height} , user.id)
             return res.status(httpStatus.CREATED).json(user)
         } catch (error) {
             next(error)
@@ -39,11 +41,11 @@ export default class UserController {
      * @method get
      * @access private admin
      /**  ------------------------------------------------------  */
-    public async find(req : Request , res : Response , next : NextFunction) {
+    public async find(req : HandlerRequest , res : Response , next : NextFunction) {
         try {
-            const {limit , page} = req.query
+            const query = req.query
             const userService : UserService = new UserService()
-            const users = await userService.find(+limit , +page)
+            const users = await userService.find( query , req.user.id)
             return res.status(httpStatus.OK).json(users)
         } catch (error) {
             next(error)
@@ -158,6 +160,24 @@ export default class UserController {
     }
 
     /** ------------------------------------------------------  
+     * @desc activation user
+     * @route /user/activation-user
+     * @method put
+     * @access private admin
+     /**  ------------------------------------------------------  */
+    public async activationUser(req : Request , res : Response , next : NextFunction) {
+        try {
+            const {id} = req.params
+            const userService : UserService = new UserService()
+            let user = await userService.findOne(id)
+            user = await userService.updateOne(id , {active : !user.active})
+            return res.status(httpStatus.OK).json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /** ------------------------------------------------------  
      * @desc active my account
      * @route /user/active-my-account
      * @method put
@@ -199,6 +219,25 @@ export default class UserController {
                     
                     })
                 }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /** ------------------------------------------------------  
+     * @desc upload product images
+     * @route /product/upload-image/:id
+     * @method post
+     * @access private all
+     /**  ------------------------------------------------------  */
+     public async uploadImage(req : HandlerRequest , res : Response , next : NextFunction) {
+        try {
+            const {id} = req.params
+            const {file} = req
+            const {width , height} = req.body
+            const userService : UserService = new UserService()
+            let user = await userService.uploadImage(file , {width , height} , id)
+           return res.status(httpStatus.OK).json(user )
         } catch (error) {
             next(error)
         }

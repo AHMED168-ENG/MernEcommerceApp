@@ -23,7 +23,7 @@ export default class OrderRouter {
             this.enqValidation.checkPaginationParams(),
             handel_validation_errors,
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.orderController.find
         )
     }

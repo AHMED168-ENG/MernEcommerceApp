@@ -18,12 +18,12 @@ class BlogCategoryRouter {
         this.Routes();
     }
     Routes() {
-        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["admin"]), this.blogCategoryValidation.createBlogCategory(), handelBodyError_1.default, this.blogCategoryController.create);
-        this.router.put("/activate-blog-category/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.blogCategoryController.activationBlogCategory);
+        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.blogCategoryValidation.createBlogCategory(), handelBodyError_1.default, this.blogCategoryController.create);
+        this.router.put("/activate-blog-category/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.blogCategoryController.activationBlogCategory);
         this.router.put("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.blogCategoryValidation.updateBlogCategory(), handelBodyError_1.default, this.blogCategoryController.updateOne);
         this.router.get("/", this.blogCategoryValidation.checkPaginationParams(), handelBodyError_1.default, this.blogCategoryController.find);
         this.router.get("/:id", validateMongodbId_1.default, this.blogCategoryController.findOne);
-        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.blogCategoryController.deleteOne);
+        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.blogCategoryController.deleteOne);
     }
 }
 exports.default = BlogCategoryRouter;

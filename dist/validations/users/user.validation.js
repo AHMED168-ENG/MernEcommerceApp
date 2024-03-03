@@ -105,6 +105,13 @@ class UserValidation {
             return true;
         }).withMessage("password should contain lower case and upper case and should be minimum 8 and should be max 20 and should contain at lest 2 symbols and special character");
     }
+    passwordReset() {
+        return (0, express_validator_1.check)("resetPassword").custom((val, { req }) => {
+            if (req.body.password && (req.body.password !== val))
+                throw new Error("");
+            return true;
+        }).withMessage("password should be matched");
+    }
     createUser() {
         return [
             this.email(),
@@ -112,6 +119,7 @@ class UserValidation {
             this.lastName(),
             this.passwordLength(),
             this.password(),
+            this.passwordReset(),
             this.mobile(),
         ];
     }
@@ -145,6 +153,15 @@ class UserValidation {
             this.passwordLength(),
             this.password()
         ];
+    }
+    imageDimension() {
+        return [this.width(), this.height()];
+    }
+    width() {
+        return (0, express_validator_1.check)("width").notEmpty().isNumeric();
+    }
+    height() {
+        return (0, express_validator_1.check)("height").notEmpty().isNumeric();
     }
     emailForgetPassword() {
         return (0, express_validator_1.check)("email").notEmpty().withMessage("Enter your email").isEmail().withMessage("this field accept email")

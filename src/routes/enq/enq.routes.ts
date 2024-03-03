@@ -22,7 +22,7 @@ export default class EnqRouter {
         this.router.post(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.enqValidation.create(),
             handel_validation_errors,
             this.enqController.create
@@ -42,7 +42,7 @@ export default class EnqRouter {
             this.enqValidation.checkPaginationParams(),
             handel_validation_errors,
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.enqController.find
         )
 
@@ -50,7 +50,7 @@ export default class EnqRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.enqController.findOne
         )
 
@@ -58,7 +58,7 @@ export default class EnqRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.enqController.deleteOne
         )
 

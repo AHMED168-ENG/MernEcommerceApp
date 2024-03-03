@@ -40,11 +40,13 @@ const UserSchema = new mongoose_1.default.Schema({
         type: String,
     },
     address: String,
-    wishlist: [{
+    wishlist: [
+        {
             type: mongoose_1.default.Schema.Types.ObjectId,
             ref: "tbl_product",
             default: []
-        }],
+        }
+    ],
     passwordChangeAt: {
         type: Date,
     },
@@ -53,6 +55,13 @@ const UserSchema = new mongoose_1.default.Schema({
     },
     passwordResetExpiration: {
         type: Date,
+    },
+    image: {
+        type: {
+            url: String,
+            public_id: String
+        },
+        default: { url: "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg" }
     },
     active: {
         type: Boolean,

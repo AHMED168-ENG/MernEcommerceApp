@@ -5,16 +5,19 @@ import UserController from "../../controller/user/user.controller";
 import UserAuth from "../../middleware/auth/userAuth";
 import FilterBody from "../../middleware/filterBody";
 import validateMongodbId from "../../middleware/validateMongodbId";
+import { ImageOperations } from "../../helper/helper";
 
 export default class UserRouter {
     public router : Router
     private readonly userValidation : UserValidation
     private readonly userController : UserController
+    public readonly imagesOperations : ImageOperations
     private readonly userAuth : UserAuth
     private readonly filterBody : FilterBody
     constructor() {
         this.userValidation = new UserValidation()
         this.userController = new UserController()
+        this.imagesOperations = new ImageOperations()
         this.userAuth = new UserAuth()
         this.filterBody = new FilterBody()
         this.router = Router()
@@ -24,9 +27,10 @@ export default class UserRouter {
     private Routes() {
         this.router.post(
             "/" , 
-            this.userValidation.createUser(),
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
+            this.imagesOperations.uploadMulter().single("image"),
+            this.userValidation.createUser(),
             handel_validation_errors,
             this.userController.create
         )
@@ -44,8 +48,16 @@ export default class UserRouter {
             "/blocked-user/:id",
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.userController.blockedUser
+        )
+
+        this.router.put(
+            "/activation-user/:id",
+            validateMongodbId, 
+            this.userAuth.Auth,
+            this.userAuth.permission(["Admin"]),
+            this.userController.activationUser
         )
 
         this.router.put(
@@ -65,7 +77,7 @@ export default class UserRouter {
         this.router.get(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.userController.find
         )
 
@@ -79,15 +91,25 @@ export default class UserRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.userController.findOne
+        )
+
+        this.router.put(
+            "/upload-image/:id", 
+            validateMongodbId, 
+            this.userAuth.Auth,
+            this.imagesOperations.uploadMulter().single("image"),
+            this.userValidation.imageDimension(),
+            handel_validation_errors,
+            this.userController.uploadImage
         )
 
         this.router.delete(
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.userController.deleteOne
         )
 

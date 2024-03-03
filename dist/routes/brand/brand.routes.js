@@ -18,12 +18,12 @@ class BrandRouter {
         this.Routes();
     }
     Routes() {
-        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["admin"]), this.brandValidation.createBrand(), handelBodyError_1.default, this.brandController.create);
-        this.router.put("/activate-brand/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.brandController.activationBrand);
+        this.router.post("/", this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.brandValidation.createBrand(), handelBodyError_1.default, this.brandController.create);
+        this.router.put("/activate-brand/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.brandController.activationBrand);
         this.router.put("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.brandValidation.updateBrand(), handelBodyError_1.default, this.brandController.updateOne);
         this.router.get("/", this.brandValidation.checkPaginationParams(), handelBodyError_1.default, this.brandController.find);
         this.router.get("/:id", validateMongodbId_1.default, this.brandController.findOne);
-        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["admin"]), this.brandController.deleteOne);
+        this.router.delete("/:id", validateMongodbId_1.default, this.userAuth.Auth, this.userAuth.permission(["Admin"]), this.brandController.deleteOne);
     }
 }
 exports.default = BrandRouter;

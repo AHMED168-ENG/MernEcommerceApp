@@ -23,7 +23,7 @@ export default class BrandRouter {
         this.router.post(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.brandValidation.createBrand(),
             handel_validation_errors,
             this.brandController.create
@@ -33,7 +33,7 @@ export default class BrandRouter {
             "/activate-brand/:id",
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.brandController.activationBrand
         )
 
@@ -63,7 +63,7 @@ export default class BrandRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.brandController.deleteOne
         )
 

@@ -16,6 +16,8 @@ const product_1 = __importDefault(require("../../model/product"));
 const helper_1 = require("../../helper/helper");
 const users_services_1 = __importDefault(require("../user/users.services"));
 const mongoose_1 = require("mongoose");
+const ErrorBuilder_1 = __importDefault(require("../../helper/ErrorBuilder"));
+const http_status_1 = __importDefault(require("http-status"));
 class ProductService {
     create(body) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -101,7 +103,7 @@ class ProductService {
         return __awaiter(this, void 0, void 0, function* () {
             let product = yield this.findOne(productId);
             if (!product)
-                throw new Error("product not found");
+                throw (0, ErrorBuilder_1.default)(http_status_1.default.NOT_FOUND, "product not found");
             const inRate = product.rating.find((id) => id.userId.toString() == userId);
             if (!inRate) {
                 product = yield this.updateOne(productId, { $push: { rating: { rate: start, userId } } });
@@ -116,16 +118,17 @@ class ProductService {
     uploadImage(files, dimension, id) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!files || !files.length)
-                throw new Error("chose your product images");
+                throw (0, ErrorBuilder_1.default)(http_status_1.default.FORBIDDEN, "chose your product images");
             let product = yield this.findOne(id);
             let imageOperations = new helper_1.ImageOperations();
             let imagesFormate = yield imageOperations.formateImages(files, { width: +dimension.width, height: +dimension.height });
             let imagesCloud = yield imageOperations.uploadFilesCloud(imagesFormate, "product");
             let publicIds = [];
             publicIds = product.images.map(ele => ele.public_id);
-            yield imageOperations.deleteFilesCloud(publicIds);
+            if (publicIds.length)
+                yield imageOperations.deleteFilesCloud(publicIds);
             let images = [];
-            images = imagesCloud.map(ele => {
+            images = imagesCloud.map((ele) => {
                 return { url: ele.url, public_id: ele.public_id };
             });
             return yield this.updateOne(id, { $set: { images: images } });

@@ -25,7 +25,7 @@ export default class BlogRouter {
         this.router.post(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.blogValidation.createBlog(),
             handel_validation_errors,
             this.blogController.create
@@ -77,7 +77,7 @@ export default class BlogRouter {
             this.blogValidation.checkPaginationParams(),
             handel_validation_errors,
             // this.userAuth.Auth,
-            // this.userAuth.permission(["admin"]),
+            // this.userAuth.permission(["Admin"]),
             this.blogController.find
         )
 
@@ -85,7 +85,7 @@ export default class BlogRouter {
             "/:id", 
             validateMongodbId, 
             // this.userAuth.Auth,
-            // this.userAuth.permission(["admin"]),
+            // this.userAuth.permission(["Admin"]),
             this.blogController.findOne
         )
 
@@ -93,7 +93,7 @@ export default class BlogRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.blogController.deleteOne
         )
 

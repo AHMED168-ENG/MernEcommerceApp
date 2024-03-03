@@ -22,7 +22,7 @@ export default class CouponRouter {
         this.router.post(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.couponValidation.createCoupon(),
             handel_validation_errors,
             this.couponController.create
@@ -42,7 +42,7 @@ export default class CouponRouter {
             this.couponValidation.checkPaginationParams(),
             handel_validation_errors,
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.couponController.find
         )
 
@@ -50,7 +50,7 @@ export default class CouponRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.couponController.findOne
         )
 
@@ -58,7 +58,7 @@ export default class CouponRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.couponController.deleteOne
         )
 

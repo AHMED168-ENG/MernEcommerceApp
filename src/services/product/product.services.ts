@@ -1,3 +1,4 @@
+import { UploadResult } from './../../types/cloudenary';
 import { PaginationModel } from 'mongoose-paginate-ts';
 import { ProductType } from '../../types/product';
 import tbl_product from '../../model/product';
@@ -5,6 +6,8 @@ import { ImageOperations, Others } from '../../helper/helper';
 import UserService from '../user/users.services';
 import { UserType } from '../../types/user';
 import { PipelineStage, Types } from 'mongoose';
+import buildError from '../../helper/ErrorBuilder';
+import httpStatus from 'http-status';
 
 
 
@@ -82,7 +85,8 @@ export default class ProductService {
 
     public async addRate(productId:string , userId : string , start : number) : Promise<ProductType> {
         let product = await this.findOne(productId)
-        if(!product) throw new Error("product not found")
+        if(!product) throw buildError(httpStatus.NOT_FOUND , "product not found")
+
         const inRate = product.rating.find((id) => id.userId.toString() == userId)
         if(!inRate) {
             product = await this.updateOne(productId , {$push : {rating : {rate : start , userId}}})
@@ -94,16 +98,16 @@ export default class ProductService {
     }  
     
     public async uploadImage(files:any , dimension : {width : number , height:number} , id : string) : Promise<ProductType> {
-        if(!files || !files.length) throw new Error("chose your product images")
+        if(!files || !files.length) throw buildError(httpStatus.FORBIDDEN , "chose your product images")
         let product : ProductType = await this.findOne(id)
         let imageOperations = new ImageOperations()
         let imagesFormate = await imageOperations.formateImages(files , {width : +dimension.width , height : +dimension.height})
         let imagesCloud = await imageOperations.uploadFilesCloud(imagesFormate , "product")       
         let publicIds : string[] = [] 
         publicIds = product.images.map(ele => ele.public_id)
-        await imageOperations.deleteFilesCloud(publicIds)
+        if(publicIds.length) await imageOperations.deleteFilesCloud(publicIds)
         let images = []
-        images = imagesCloud.map(ele => {
+        images = imagesCloud.map((ele : UploadResult) => {
             return {url : ele.url , public_id : ele.public_id}
         })
         return await this.updateOne(id , {$set : {images : images}})

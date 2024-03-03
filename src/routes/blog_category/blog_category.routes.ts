@@ -24,7 +24,7 @@ export default class BlogCategoryRouter {
         this.router.post(
             "/" , 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.blogCategoryValidation.createBlogCategory(),
             handel_validation_errors,
             this.blogCategoryController.create
@@ -34,7 +34,7 @@ export default class BlogCategoryRouter {
             "/activate-blog-category/:id",
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.blogCategoryController.activationBlogCategory
         )
 
@@ -64,7 +64,7 @@ export default class BlogCategoryRouter {
             "/:id", 
             validateMongodbId, 
             this.userAuth.Auth,
-            this.userAuth.permission(["admin"]),
+            this.userAuth.permission(["Admin"]),
             this.blogCategoryController.deleteOne
         )
 

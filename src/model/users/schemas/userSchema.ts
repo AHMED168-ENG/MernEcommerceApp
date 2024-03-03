@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import {mongoosePagination} from "mongoose-paginate-ts"
+import { userRoles } from "../../../constant/user";
 
 const UserSchema = new mongoose.Schema({
     firstName : {
@@ -25,8 +26,9 @@ const UserSchema = new mongoose.Schema({
         required : true,
     },
     role : {
+        enum : userRoles,
         type : String,
-        default : "user"
+        default : "User"
     },
     isBlocked : {
         type : Boolean,
@@ -41,11 +43,13 @@ const UserSchema = new mongoose.Schema({
     //     default : [],
     // }],
     address : String,
-    wishlist : [{
-        type : mongoose.Schema.Types.ObjectId , 
-        ref : "tbl_product",
-        default : []
-    }],
+    wishlist : [
+        {
+            type : mongoose.Schema.Types.ObjectId , 
+            ref : "tbl_product",
+            default : []
+        }
+    ],
     passwordChangeAt : {
         type : Date,
     },
@@ -54,6 +58,13 @@ const UserSchema = new mongoose.Schema({
     },
     passwordResetExpiration : {
         type : Date,
+    },
+    image : {
+        type : {
+            url : String,
+            public_id : String
+        },
+        default: {url : "https://craftsnippets.com/articles_images/placeholder/placeholder.jpg"}
     },
     active : {
         type : Boolean,

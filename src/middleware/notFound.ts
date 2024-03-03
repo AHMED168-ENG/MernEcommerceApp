@@ -4,7 +4,7 @@ import httpStatus from "http-status";
 
 export default function notFoundRoute (req: Request, res: Response, next: NextFunction) {
     res.status(httpStatus.NOT_FOUND).json({
-        msg: "this route not exists",
+        message: "this route not exists",
         success: false,
     });
 }

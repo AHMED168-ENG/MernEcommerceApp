@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { Others } from "../../helper/helper";
-import brandService from "../../services/blog_category/blog_category.services";
 import BrandService from "../../services/brand/brand.services";
+import * as exceljs from "exceljs"
+import * as fs from "fs"
+
 interface HandlerRequest extends Request {
     query: {
         page: string,
@@ -68,6 +70,7 @@ export default class BrandController {
         }
     }
 
+
     /** ------------------------------------------------------  
      * @desc update brand
      * @route /brand/update one
@@ -118,9 +121,44 @@ export default class BrandController {
             const {id} = req.params
             const brandService : BrandService = new BrandService()
             let brand = await brandService.findOne(id)
-            console.log(brand)
             brand = await brandService.activation(id , {active : !brand.active})
             return res.status(httpStatus.OK).json(brand)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+        
+    /** ------------------------------------------------------  
+     * @desc download excel
+     * @route /user/excel
+     * @method get
+     * @access private admin
+     /**  ------------------------------------------------------  */
+     public async downloadExcel(req : Request , res : Response , next : NextFunction) {
+        try {
+            const brandService : BrandService = new BrandService()
+            const workbook = new exceljs.Workbook();
+            const worksheet = workbook.addWorksheet('Sheet 1');
+          
+            worksheet.columns = [
+              { header: 'title', key: 'title', width: 20 },
+              { header: 'active', key: 'active', width: 10 },
+            ];
+            let brand = await brandService.findUsersExcel()
+            worksheet.addRows(brand);
+
+            const filePath = 'brand.xlsx';
+          
+            workbook.xlsx.writeFile(filePath)
+              .then(() => {
+                res.download(filePath, 'brand.xlsx', (err) => {
+                  if (err) {
+                   console.log(err)
+                  }
+                  fs.unlinkSync(filePath); // Delete the file after download
+                });
+              })
         } catch (error) {
             next(error)
         }

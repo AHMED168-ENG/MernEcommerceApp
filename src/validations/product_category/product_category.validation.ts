@@ -5,14 +5,14 @@ import ProductCategoryService from "../../services/product_category/product_cate
 
 export default class ProductCategoryValidation {
     private title(id?:boolean) {
-        return check("title").notEmpty().withMessage("enter Category title please").custom(async(val , {req}) => {
+        return check("title").notEmpty().withMessage("enter product title please").custom(async(val , {req}) => {
             const productCategoryService = new ProductCategoryService()
             let query : {title : string , _id? : {}} = {title : val}
             if(id) query._id = {$ne : req.params.id}
             const productCategory = await productCategoryService.findWithQuery(query)
             if(productCategory) return Promise.reject("")
             return true
-        }).withMessage("this category already exist").trim()
+        }).withMessage("this product already exist").trim()
     }
 
     private parentId(id?:boolean) {

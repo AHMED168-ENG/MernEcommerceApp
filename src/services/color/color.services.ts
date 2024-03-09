@@ -25,6 +25,11 @@ export default class ColorService {
         const colors  = await tbl_color.paginate({limit , page , query : newQuery , sort : newSort }) 
         return colors 
     }
+        
+    public async findUsersExcel( ) : Promise<ColorType[]> { 
+        const users = await tbl_color.find()
+        return users
+    }
     
     public async findOne(_id:string) : Promise<ColorType> {
         const color = await tbl_color.findOne({_id } )

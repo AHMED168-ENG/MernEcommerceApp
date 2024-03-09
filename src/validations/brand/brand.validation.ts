@@ -6,14 +6,14 @@ import BrandService from "../../services/brand/brand.services";
 
 export default class BrandValidation {
     private title(id?:boolean) {
-        return check("title").notEmpty().withMessage("enter Category title please").custom(async(val , {req}) => {
+        return check("title").notEmpty().withMessage("enter brand title please").custom(async(val , {req}) => {
             const brandService = new BrandService()
             let query : {title : string , _id? : {}} = {title : val}
             if(id) query._id = {$ne : req.params.id}
             const brand = await brandService.findWithQuery(query)
             if(brand) return Promise.reject("")
             return true
-        }).withMessage("this category already exist").trim()
+        }).withMessage("this brand already exist").trim()
     }
 
     private page() {

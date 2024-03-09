@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import ColorService from "../../services/color/color.services";
+import * as exceljs from "exceljs"
+import * as fs from "fs"
 
 interface HandlerRequest extends Request {
     query: {
@@ -103,5 +105,60 @@ export default class ColorController {
             next(error)
         }
     }
+    
+    /** ------------------------------------------------------  
+     * @desc activation color
+     * @route /color/activation-color
+     * @method put
+     * @access private admin
+     /**  ------------------------------------------------------  */
+     public async activationColor(req : Request , res : Response , next : NextFunction) {
+        try {
+            const {id} = req.params
+            const colorService : ColorService = new ColorService()
+            let color = await colorService.findOne(id)
+            console.log(color)
+            color = await colorService.updateOne(id , {active : !color.active})
+            console.log(!color.active)
+            return res.status(httpStatus.OK).json(color)
+        } catch (error) {
+            next(error)
+        }
+    }
 
+    
+    /** ------------------------------------------------------  
+     * @desc download excel
+     * @route /user/excel
+     * @method get
+     * @access private admin
+     /**  ------------------------------------------------------  */
+     public async downloadExcel(req : Request , res : Response , next : NextFunction) {
+        try {
+            const colorService : ColorService = new ColorService()
+            const workbook = new exceljs.Workbook();
+            const worksheet = workbook.addWorksheet('Sheet 1');
+          
+            worksheet.columns = [
+              { header: 'name', key: 'name', width: 20 },
+              { header: 'active', key: 'active', width: 10 },
+            ];
+            let color = await colorService.findUsersExcel()
+            worksheet.addRows(color);
+
+            const filePath = 'color.xlsx';
+          
+            workbook.xlsx.writeFile(filePath)
+              .then(() => {
+                res.download(filePath, 'color.xlsx', (err) => {
+                  if (err) {
+                   console.log(err)
+                  }
+                  fs.unlinkSync(filePath); // Delete the file after download
+                });
+              })
+        } catch (error) {
+            next(error)
+        }
+    }
 }

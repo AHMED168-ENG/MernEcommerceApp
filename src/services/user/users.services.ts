@@ -28,15 +28,20 @@ export default class UserService {
     
     public async updateOne(_id:string , body:any) : Promise<UserType> {
         const user = await tbl_user.findOneAndUpdate({_id}  , body , {new : true})
-        console.log(user)
         return user
     }
     
     public async find( query : any , id:string) : Promise<PaginationModel<UserType>> { 
         let others : Others = new Others()
         let newQuery = await others.sanitizeQuery(query , ["firstName" , "lastName" , "email"])
+        newQuery = await others.moveAndToOr(newQuery)
         const user = await tbl_user.paginate({limit : query.limit , page: query.page , query : {_id : {$ne : id} , ...newQuery} , select :  {password : 0} , sort : {createdAt : -1}}) 
         return user 
+    }
+    
+    public async findUsersExcel( ) : Promise<UserType[]> { 
+        const users = await tbl_user.find()
+        return users
     }
     
     public async findWithEmail(email:string) : Promise<UserType> {

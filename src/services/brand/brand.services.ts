@@ -26,6 +26,12 @@ export default class BrandService {
         return brand 
     }
     
+    public async findUsersExcel( ) : Promise<BrandType[]> { 
+        const users = await tbl_brand.find()
+        return users
+    }
+    
+
     public async findOne(_id:string) : Promise<BrandType> {
         const brand = await tbl_brand.findOne({_id})
         return brand

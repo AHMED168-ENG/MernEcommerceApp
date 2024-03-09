@@ -44,6 +44,13 @@ export default class UserRouter {
             this.userController.updateProfile
         )
 
+        this.router.get(
+            "/export/excel", 
+            // this.userAuth.Auth,
+            // this.userAuth.permission(["Admin"]),
+            this.userController.downloadExcel
+        )
+
         this.router.put(
             "/blocked-user/:id",
             validateMongodbId, 
@@ -65,6 +72,8 @@ export default class UserRouter {
             validateMongodbId, 
             this.userController.activeMyAccount
         )
+        
+
         this.router.put(
             "/:id", 
             validateMongodbId, 
@@ -94,6 +103,8 @@ export default class UserRouter {
             this.userAuth.permission(["Admin"]),
             this.userController.findOne
         )
+
+
 
         this.router.put(
             "/upload-image/:id", 

@@ -30,6 +30,13 @@ export default class ColorRouter {
             this.colorController.create
         )
 
+        this.router.get(
+            "/export/excel", 
+            // this.userAuth.Auth,
+            // this.userAuth.permission(["Admin"]),
+            this.colorController.downloadExcel
+        )
+        
         this.router.put(
             "/:id", 
             validateMongodbId, 
@@ -37,6 +44,14 @@ export default class ColorRouter {
             this.colorValidation.name(),
             handel_validation_errors,
             this.colorController.updateOne
+        )
+        
+        this.router.put(
+            "/activation-color/:id",
+            validateMongodbId, 
+            this.userAuth.Auth,
+            this.userAuth.permission(["Admin"]),
+            this.colorController.activationColor
         )
 
         this.router.get(

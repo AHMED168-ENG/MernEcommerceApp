@@ -469,3 +469,7 @@
 {"level":"error","message":"File too large","timestamp":"2024-03-02T14:21:59.294Z"}
 {"level":"error","message":"File too large","timestamp":"2024-03-02T14:22:06.561Z"}
 {"level":"error","message":"File too large","timestamp":"2024-03-02T14:22:48.259Z"}
+{"level":"error","message":"Cast to Boolean failed for value \"\" (type string) at path \"active\" because of \"CastError\"","timestamp":"2024-03-04T16:55:14.179Z"}
+{"level":"error","message":"Cast to Boolean failed for value \"\" (type string) at path \"active\" because of \"CastError\"","timestamp":"2024-03-04T16:55:23.529Z"}
+{"level":"error","message":"Cast to Boolean failed for value \"\" (type string) at path \"active\" because of \"CastError\"","timestamp":"2024-03-04T16:55:41.704Z"}
+{"level":"error","message":"Cannot read properties of null (reading 'active')","timestamp":"2024-03-04T18:28:53.379Z"}

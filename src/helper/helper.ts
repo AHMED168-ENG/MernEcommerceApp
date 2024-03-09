@@ -145,7 +145,7 @@ export class Others {
         }
         return sortObject
     }
-    return { _id: 1 }
+    return { createdAt: -1 }
 }
   /*--------------------- end sort ---------------------*/
   /*--------------------- start create slug ---------------------*/
@@ -165,11 +165,21 @@ export class Others {
       }
     })
     queryObject = JSON.stringify(queryObject)
-    queryObject = queryObject.replace(/\b(gte|gt|lte|lt|regex)\b/g ,(match => `$${match}`))
+    queryObject = queryObject.replace(/\b(gte|gt|lte|lt)\b/g ,(match => `$${match}`))
+    queryObject = queryObject.replace(/\b(regex)\b/g ,(match => `$${match}`))
     queryObject = JSON.parse(queryObject)
-    console.log(queryObject)
     return queryObject
   }
   /*--------------------- end sanitize query ---------------------*/
+
+  /*--------------------- start move object from and to or ---------------------*/
+  public async moveAndToOr(Object : any){
+    let newObject = []
+    for (const key in Object) {
+      newObject.push({[key] : Object[key]})
+    }
+    return newObject.length ? {$or : newObject} : {}
+  }
+  /*--------------------- end move object from and to or ---------------------*/
 
 }

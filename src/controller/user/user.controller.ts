@@ -4,6 +4,9 @@ import UserService from "../../services/user/users.services";
 import httpStatus from "http-status";
 import { Config } from "../../config/config";
 import buildError from '../../helper/ErrorBuilder';
+import * as exceljs from "exceljs"
+import * as fs from "fs"
+
 interface HandlerRequest extends Request {
     query: {
         page: string,
@@ -252,6 +255,48 @@ export default class UserController {
     public async logout(req : Request , res : Response , next : NextFunction) {
         try {
             res.clearCookie("refreshToken")
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    /** ------------------------------------------------------  
+     * @desc download excel
+     * @route /user/excel
+     * @method get
+     * @access private admin
+     /**  ------------------------------------------------------  */
+    public async downloadExcel(req : Request , res : Response , next : NextFunction) {
+        try {
+            const userService : UserService = new UserService()
+            const workbook = new exceljs.Workbook();
+            const worksheet = workbook.addWorksheet('Sheet 1');
+          
+            worksheet.columns = [
+              { header: 'firstName', key: 'firstName', width: 20 },
+              { header: 'lastName', key: 'lastName', width: 10 },
+              { header: 'email', key: 'email', width: 10 },
+              { header: 'mobile', key: 'mobile', width: 10 },
+              { header: 'password', key: 'password', width: 10 },
+              { header: 'role', key: 'role', width: 10 },
+              { header: 'isBlocked', key: 'isBlocked', width: 10 },
+              { header: 'address', key: 'address', width: 10 },
+              { header: 'active', key: 'active', width: 10 },
+            ];
+            let users = await userService.findUsersExcel()
+            worksheet.addRows(users);
+
+            const filePath = 'users.xlsx';
+          
+            workbook.xlsx.writeFile(filePath)
+              .then(() => {
+                res.download(filePath, 'users.xlsx', (err) => {
+                  if (err) {
+                   console.log(err)
+                  }
+                  fs.unlinkSync(filePath); // Delete the file after download
+                });
+              })
         } catch (error) {
             next(error)
         }

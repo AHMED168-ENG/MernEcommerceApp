@@ -4,6 +4,7 @@ import { Pagination } from "mongoose-paginate-ts";
 
 export type ColorType= mongoose.Document & {
     name : string,       
+    active : boolean,
 }
 
 export interface colorPaginateModel extends Pagination<ColorType> {

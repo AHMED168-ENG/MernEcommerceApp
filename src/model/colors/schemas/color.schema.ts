@@ -8,6 +8,10 @@ const ColorSchema = new Schema({
         trim : true,
         uppercase: true
     },
+    active : {
+        type : Boolean,
+        default:true,    
+    },
 } , {timestamps : true})
 ColorSchema.index({"name" : 1} )
 ColorSchema.plugin(mongoosePagination)

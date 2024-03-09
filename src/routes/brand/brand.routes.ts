@@ -29,6 +29,12 @@ export default class BrandRouter {
             this.brandController.create
         )
 
+        this.router.get(
+            "/export/excel", 
+            // this.userAuth.Auth,
+            // this.userAuth.permission(["Admin"]),
+            this.brandController.downloadExcel
+        )
         this.router.put(
             "/activate-brand/:id",
             validateMongodbId, 
